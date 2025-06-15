@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oscar's Favorite Poem</title>
+  <style>
+    body {
+      background-color: maroon;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    a {
+      color: #ffcccb;
+    }
+  </style>
+</head>
+<body>
+  <h1>Oscar's Favorite Poem</h1>
+  <p>
+    Ickle Me, Pickle Me, Tickle Me Too is a poem by Shel Silverstein.  
+    You can read it <a href="https://www.poetryfoundation.org/poems/43192/ickle-me-pickle-me-tickle-me-too" target="_blank">here</a> on the Poetry Foundation website.
+  </p>
+  <p><a href="index.html">Back to home</a></p>
+</body>
+</html>
