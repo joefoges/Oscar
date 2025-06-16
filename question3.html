@@ -1,0 +1,87 @@
+<!-- File: question3.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Would You Rather – 3</title>
+    <style>
+      body {
+        background-color: teal;
+        color: #8B4513;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        text-align: center;
+      }
+      h1 {
+        margin: 0 0 1rem 0;
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1.5rem;
+        margin: 0 0 1.5rem 0;
+      }
+      .options {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .option {
+        background: transparent;
+        border: 2px solid currentColor;
+        border-radius: 8px;
+        padding: 0.5rem 1.25rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .option:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+      .option.selected {
+        background-color: #d11b1b;
+        color: #fff;
+      }
+      .arrow {
+        text-decoration: none;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: #8B4513;
+      }
+      .arrow:hover {
+        text-decoration: underline;
+      }
+      .arrow span {
+        font-size: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Would you rather...</h1>
+    <p>Would you rather encounter a mouse in the woods or encounter a bobcat in the woods?</p>
+
+    <div class="options">
+      <button class="option">Mouse</button>
+      <button class="option">Bobcat</button>
+    </div>
+
+    <a class="arrow" href="question1.html"><span>&#x27A4;</span> try another</a>
+
+    <script>
+      document.querySelectorAll('.option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.parentElement.querySelectorAll('.option').forEach(function (b) {
+            b.classList.remove('selected');
+          });
+          this.classList.add('selected');
+        });
+      });
+    </script>
+  </body>
+</html>
