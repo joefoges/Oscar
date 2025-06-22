@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Paint by Number - Baby Pig</title>
+  <title>Paint the Baby Pig!</title>
   <style>
     body {
       font-family: sans-serif;
@@ -10,18 +10,22 @@
       flex-direction: column;
       align-items: center;
       margin: 20px;
+      background-color: #f8f8f8;
     }
     canvas {
       border: 2px solid #000;
       margin-top: 10px;
+      background-color: #fff;
     }
     .palette {
       display: flex;
-      margin-top: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .color-box {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       border: 2px solid black;
       margin: 5px;
       cursor: pointer;
@@ -30,6 +34,7 @@
       justify-content: center;
       font-weight: bold;
       font-size: 18px;
+      color: #000;
     }
   </style>
 </head>
@@ -47,14 +52,90 @@
   const gridSize = 10;
   const cellSize = canvas.width / gridSize;
 
+  // Color palette (numbers map to colors)
   const colors = {
-    0: "#ffffff",  // blank/white
-    1: "#f4c2c2",  // pig pink
-    2: "#ffb6b6",  // light pink
-    3: "#000000",  // eyes
-    4: "#e0a899",  // nose
+    0: "#ffffff", // White background
+    1: "#f4c2c2", // Light pink (pig body)
+    2: "#ffb6b6", // Pink shade
+    3: "#000000", // Eyes
+    4: "#e0a899"  // Nose
   };
 
   let selectedColor = null;
 
-  /
+  // Baby pig pixel art: 10x10 grid (each number = correct color)
+  const pigData = [
+    [0,0,0,1,1,1,1,0,0,0],
+    [0,0,1,1,2,2,1,1,0,0],
+    [0,1,2,2,2,2,2,2,1,0],
+    [0,1,2,3,2,2,3,2,1,0],
+    [1,2,2,2,4,4,2,2,2,1],
+    [1,2,2,2,2,2,2,2,2,1],
+    [0,1,2,2,2,2,2,2,1,0],
+    [0,0,1,2,2,2,2,1,0,0],
+    [0,0,1,1,0,0,1,1,0,0],
+    [0,0,0,0,0,0,0,0,0,0]
+  ];
+
+  const painted = Array.from({ length: gridSize }, () => Array(gridSize).fill(0));
+
+  // Draw the pixel grid with number hints
+  function drawGrid() {
+    for (let y = 0; y < gridSize; y++) {
+      for (let x = 0; x < gridSize; x++) {
+        const correctNum = pigData[y][x];
+        const paintedColor = painted[y][x];
+
+        // Set fill color: painted or white
+        ctx.fillStyle = paintedColor !== 0 ? colors[paintedColor] : "#ffffff";
+        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+
+        // Draw grid border
+        ctx.strokeStyle = "#ccc";
+        ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+
+        // Draw number hint
+        ctx.fillStyle = "#333";
+        ctx.font = "12px sans-serif";
+        ctx.fillText(correctNum, x * cellSize + 4, y * cellSize + 14);
+      }
+    }
+  }
+
+  // Create color selection palette
+  function createPalette() {
+    const palette = document.getElementById("palette");
+    Object.entries(colors).forEach(([num, color]) => {
+      if (num == 0) return; // skip background white
+      const box = document.createElement("div");
+      box.className = "color-box";
+      box.style.backgroundColor = color;
+      box.textContent = num;
+      box.onclick = () => {
+        selectedColor = parseInt(num);
+        // Highlight selected
+        document.querySelectorAll(".color-box").forEach(el => el.style.outline = "");
+        box.style.outline = "4px solid blue";
+      };
+      palette.appendChild(box);
+    });
+  }
+
+  // Paint logic
+  canvas.addEventListener("click", function (e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor((e.clientX - rect.left) / cellSize);
+    const y = Math.floor((e.clientY - rect.top) / cellSize);
+    if (selectedColor !== null && pigData[y][x] === selectedColor) {
+      painted[y][x] = selectedColor;
+      drawGrid();
+    }
+  });
+
+  // Init
+  createPalette();
+  drawGrid();
+</script>
+
+</body>
+</html>
