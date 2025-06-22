@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paint by Number - Baby Pig</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    canvas {
+      border: 2px solid #000;
+      margin-top: 10px;
+    }
+    .palette {
+      display: flex;
+      margin-top: 10px;
+    }
+    .color-box {
+      width: 40px;
+      height: 40px;
+      border: 2px solid black;
+      margin: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Paint the Baby Pig!</h2>
+<canvas id="paintCanvas" width="300" height="300"></canvas>
+
+<div class="palette" id="palette"></div>
+
+<script>
+  const canvas = document.getElementById("paintCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const gridSize = 10;
+  const cellSize = canvas.width / gridSize;
+
+  const colors = {
+    0: "#ffffff",  // blank/white
+    1: "#f4c2c2",  // pig pink
+    2: "#ffb6b6",  // light pink
+    3: "#000000",  // eyes
+    4: "#e0a899",  // nose
+  };
+
+  let selectedColor = null;
+
+  /
